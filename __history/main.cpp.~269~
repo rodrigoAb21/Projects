@@ -163,6 +163,19 @@ String nuevoABC(String clave){
 	return n;
 }
 
+
+String rellenoZigZag(String texto, int filas){
+	int elementos = (filas * 2) - 2;
+	while(true){
+		if(texto.Length() % elementos == 0){
+			break;
+		}
+		texto = texto + "X";
+	}
+	return texto;
+}
+
+
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
@@ -778,7 +791,7 @@ void __fastcall TForm1::Cifrar4Click(TObject *Sender)
 		cifrado = cifrado + alfabeto[nuevaPos];
 	}
 
-    RichEdit2->Text = cifrado;
+	RichEdit2->Text = cifrado;
 }
 //---------------------------------------------------------------------------
 
@@ -790,7 +803,7 @@ void __fastcall TForm1::Descifrar4Click(TObject *Sender)
 
 	String alfabeto = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
 
-	String cifrado = "";
+	String descifrado = "";
 	int posLetra = 0;
 	int nuevaPos = 0;
 
@@ -800,16 +813,36 @@ void __fastcall TForm1::Descifrar4Click(TObject *Sender)
 	for(int i = 1; i <= texto.Length(); i++){
 		posLetra = alfabeto.Pos(texto[i]);
 		nuevaPos = ((posLetra - desplazamiento + 27 - 1) % 27) + 1;
-		cifrado = cifrado + alfabeto[nuevaPos];
+		descifrado = descifrado + alfabeto[nuevaPos];
 	}
 
-	RichEdit2->Text = cifrado;
+	RichEdit2->Text = descifrado;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::Cifrar5Click(TObject *Sender)
 {
 	//Desplazamiento con Clave (Cesar) -- Cifrado
+    String clave = InputBox("Clave", "Clave: ", "Clave");
+	String alfabeto = nuevoABC(clave);
+
+    String texto = RichEdit1->Text;
+	texto = limpiarCadena(texto);
+
+	String cifrado = "";
+	int posLetra = 0;
+	int nuevaPos = 0;
+	int desplazamiento = 3;
+	desplazamiento = StrToInt(InputBox("Ingresar desplazamiento", "Desplazamiento", "1"));
+
+	for(int i = 1; i <= texto.Length(); i++){
+		posLetra = alfabeto.Pos(texto[i]);
+		nuevaPos = ((posLetra + desplazamiento - 1) % 27) + 1;
+		cifrado = cifrado + alfabeto[nuevaPos];
+	}
+
+	RichEdit2->Text = cifrado;
+
 }
 //---------------------------------------------------------------------------
 
@@ -819,8 +852,84 @@ void __fastcall TForm1::Descifrar5Click(TObject *Sender)
 
 	String clave = InputBox("Clave", "Clave: ", "Clave");
 	String alfabeto = nuevoABC(clave);
-	ShowMessage(alfabeto + " -> " +  IntToStr(alfabeto.Length()));
 
+    String texto = RichEdit1->Text;
+	texto = limpiarCadena(texto);
+
+	String descifrado = "";
+	int posLetra = 0;
+	int nuevaPos = 0;
+
+	int desplazamiento = 3;
+	desplazamiento = StrToInt(InputBox("Ingresar desplazamiento", "Desplazamiento", "1"));
+
+	for(int i = 1; i <= texto.Length(); i++){
+		posLetra = alfabeto.Pos(texto[i]);
+		nuevaPos = ((posLetra - desplazamiento + 27 - 1) % 27) + 1;
+		descifrado = descifrado + alfabeto[nuevaPos];
+	}
+
+	RichEdit2->Text = descifrado;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::Cifrar6Click(TObject *Sender)
+{
+    // Cifrado Zig Zag
+	String texto = RichEdit1->Text;
+	int filas = StrToInt(InputBox("Filas", "Filas: ", "3"));
+	texto  = rellenoZigZag(limpiarCadena(texto), filas);
+	int f = 1;
+	int c = 1;
+	bool sw = true;
+	String matriz[100][500];
+
+	for(int i = 1; i <= filas; i++){
+		for(int j = 1; j <= texto.Length(); j++){
+			matriz[i][j] = "";
+		}
+	}
+
+
+	for(int i = 1; i <= texto.Length(); i++){
+		matriz[f][c] = texto[i];
+		//desciende
+		if(sw){
+			if(f != filas){
+				f++;
+			} else {
+				sw = false;
+				f--;
+			}
+		}else{
+			if(f != 1){
+				f--;
+			} else {
+				sw = true;
+				f++;
+			}
+		}
+		c++;
+	}
+
+	String cifrado = "";
+	for(int i = 1; i <= filas; i++){
+		for(int j = 1; j <= texto.Length(); j++){
+			cifrado = cifrado + matriz[i][j];
+		}
+	}
+
+	RichEdit2->Text = cifrado;
+
+
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Descifrar6Click(TObject *Sender)
+{
+	//Descifrado Zig Zag
 }
 //---------------------------------------------------------------------------
 

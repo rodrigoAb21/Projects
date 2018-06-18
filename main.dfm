@@ -128,6 +128,7 @@ object Form1: TForm1
         end
         object Descifrar6: TMenuItem
           Caption = 'Descifrar'
+          OnClick = Descifrar6Click
         end
       end
     end

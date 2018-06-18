@@ -876,18 +876,61 @@ void __fastcall TForm1::Descifrar5Click(TObject *Sender)
 
 void __fastcall TForm1::Cifrar6Click(TObject *Sender)
 {
+    // Cifrado Zig Zag
 	String texto = RichEdit1->Text;
 	int filas = StrToInt(InputBox("Filas", "Filas: ", "3"));
 	texto  = rellenoZigZag(limpiarCadena(texto), filas);
+	int f = 1;
+	int c = 1;
+	bool sw = true;
+	String matriz[100][500];
 
-	for(int i = 1; i <= texto.Length(); i++){
-		for(int i = j; j <= texto.Length(); j++){
-			for(int k = 1; k <= texto.Length(); k++){
-
-				i++;
-			}
+	for(int i = 1; i <= filas; i++){
+		for(int j = 1; j <= texto.Length(); j++){
+			matriz[i][j] = "";
 		}
 	}
+
+
+	for(int i = 1; i <= texto.Length(); i++){
+		matriz[f][c] = texto[i];
+		//desciende
+		if(sw){
+			if(f != filas){
+				f++;
+			} else {
+				sw = false;
+				f--;
+			}
+		}else{
+			if(f != 1){
+				f--;
+			} else {
+				sw = true;
+				f++;
+			}
+		}
+		c++;
+	}
+
+	String cifrado = "";
+	for(int i = 1; i <= filas; i++){
+		for(int j = 1; j <= texto.Length(); j++){
+			cifrado = cifrado + matriz[i][j];
+		}
+	}
+
+	RichEdit2->Text = cifrado;
+
+
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Descifrar6Click(TObject *Sender)
+{
+	//Descifrado Zig Zag
+
 }
 //---------------------------------------------------------------------------
 
