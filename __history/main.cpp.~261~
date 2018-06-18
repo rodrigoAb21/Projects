@@ -147,7 +147,7 @@ String nuevoABC(String clave){
 	String alfabeto = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
 	String c = limpiarCadena(clave);
 	String n = c[1];
-    ShowMessage(c);
+
 	for(int i = 1; i <= c.Length(); i++){
 		if(n.Pos(c[i]) <= 0){
 			n = n + c[i];
@@ -156,7 +156,7 @@ String nuevoABC(String clave){
 
 	for(int i = 1; i <= alfabeto.Length(); i++){
 		if(n.Pos(alfabeto[i]) <= 0){
-			n = n + c[i];
+			n = n + alfabeto[i];
 		}
 	}
 
@@ -778,7 +778,7 @@ void __fastcall TForm1::Cifrar4Click(TObject *Sender)
 		cifrado = cifrado + alfabeto[nuevaPos];
 	}
 
-    RichEdit2->Text = cifrado;
+	RichEdit2->Text = cifrado;
 }
 //---------------------------------------------------------------------------
 
@@ -790,7 +790,7 @@ void __fastcall TForm1::Descifrar4Click(TObject *Sender)
 
 	String alfabeto = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
 
-	String cifrado = "";
+	String descifrado = "";
 	int posLetra = 0;
 	int nuevaPos = 0;
 
@@ -800,16 +800,36 @@ void __fastcall TForm1::Descifrar4Click(TObject *Sender)
 	for(int i = 1; i <= texto.Length(); i++){
 		posLetra = alfabeto.Pos(texto[i]);
 		nuevaPos = ((posLetra - desplazamiento + 27 - 1) % 27) + 1;
-		cifrado = cifrado + alfabeto[nuevaPos];
+		descifrado = descifrado + alfabeto[nuevaPos];
 	}
 
-	RichEdit2->Text = cifrado;
+	RichEdit2->Text = descifrado;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::Cifrar5Click(TObject *Sender)
 {
 	//Desplazamiento con Clave (Cesar) -- Cifrado
+    String clave = InputBox("Clave", "Clave: ", "Clave");
+	String alfabeto = nuevoABC(clave);
+
+    String texto = RichEdit1->Text;
+	texto = limpiarCadena(texto);
+
+	String cifrado = "";
+	int posLetra = 0;
+	int nuevaPos = 0;
+	int desplazamiento = 3;
+	desplazamiento = StrToInt(InputBox("Ingresar desplazamiento", "Desplazamiento", "1"));
+
+	for(int i = 1; i <= texto.Length(); i++){
+		posLetra = alfabeto.Pos(texto[i]);
+		nuevaPos = ((posLetra + desplazamiento - 1) % 27) + 1;
+		cifrado = cifrado + alfabeto[nuevaPos];
+	}
+
+	RichEdit2->Text = cifrado;
+
 }
 //---------------------------------------------------------------------------
 
@@ -819,8 +839,24 @@ void __fastcall TForm1::Descifrar5Click(TObject *Sender)
 
 	String clave = InputBox("Clave", "Clave: ", "Clave");
 	String alfabeto = nuevoABC(clave);
-	ShowMessage(alfabeto + " -> " +  IntToStr(alfabeto.Length()));
 
+    String texto = RichEdit1->Text;
+	texto = limpiarCadena(texto);
+
+	String descifrado = "";
+	int posLetra = 0;
+	int nuevaPos = 0;
+
+	int desplazamiento = 3;
+	desplazamiento = StrToInt(InputBox("Ingresar desplazamiento", "Desplazamiento", "1"));
+
+	for(int i = 1; i <= texto.Length(); i++){
+		posLetra = alfabeto.Pos(texto[i]);
+		nuevaPos = ((posLetra - desplazamiento + 27 - 1) % 27) + 1;
+		descifrado = descifrado + alfabeto[nuevaPos];
+	}
+
+	RichEdit2->Text = descifrado;
 }
 //---------------------------------------------------------------------------
 

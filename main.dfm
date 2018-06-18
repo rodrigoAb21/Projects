@@ -122,6 +122,13 @@ object Form1: TForm1
       end
       object ZigZag1: TMenuItem
         Caption = 'Zig - Zag'
+        object Cifrar6: TMenuItem
+          Caption = 'Cifrar'
+          OnClick = Cifrar6Click
+        end
+        object Descifrar6: TMenuItem
+          Caption = 'Descifrar'
+        end
       end
     end
     object Sustitucion1: TMenuItem

@@ -53,9 +53,25 @@ object Form1: TForm1
       Caption = 'Desplazamiento'
       object Puro1: TMenuItem
         Caption = 'Puro'
+        object Cifrar4: TMenuItem
+          Caption = 'Cifrar'
+          OnClick = Cifrar4Click
+        end
+        object Descifrar4: TMenuItem
+          Caption = 'Descifrar'
+          OnClick = Descifrar4Click
+        end
       end
       object Conclave1: TMenuItem
         Caption = 'Con clave'
+        object Cifrar5: TMenuItem
+          Caption = 'Cifrar'
+          OnClick = Cifrar5Click
+        end
+        object Descifrar5: TMenuItem
+          Caption = 'Descifrar'
+          OnClick = Descifrar5Click
+        end
       end
     end
     object ransposicion1: TMenuItem
@@ -90,6 +106,7 @@ object Form1: TForm1
         end
         object Descifrar1: TMenuItem
           Caption = 'Descifrar'
+          OnClick = Descifrar1Click
         end
       end
       object Filas1: TMenuItem
@@ -105,6 +122,12 @@ object Form1: TForm1
       end
       object ZigZag1: TMenuItem
         Caption = 'Zig - Zag'
+        object Cifrar6: TMenuItem
+          Caption = 'Cifrar'
+        end
+        object Descifrar6: TMenuItem
+          Caption = 'Descifrar'
+        end
       end
     end
     object Sustitucion1: TMenuItem
@@ -113,9 +136,11 @@ object Form1: TForm1
         Caption = 'Mono Alfabetica'
         object Cifrar3: TMenuItem
           Caption = 'Cifrar'
+          OnClick = Cifrar3Click
         end
         object Descifrar3: TMenuItem
           Caption = 'Descifrar'
+          OnClick = Descifrar3Click
         end
       end
       object PoliAlfabetica1: TMenuItem

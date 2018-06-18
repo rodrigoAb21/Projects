@@ -163,6 +163,19 @@ String nuevoABC(String clave){
 	return n;
 }
 
+
+String rellenoZigZag(String texto, int filas){
+	int elementos = (filas * 2) - 2;
+	while(true){
+		if(texto.Length() % elementos == 0){
+			break;
+		}
+		texto = texto + "X";
+	}
+	return texto;
+}
+
+
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
@@ -857,6 +870,24 @@ void __fastcall TForm1::Descifrar5Click(TObject *Sender)
 	}
 
 	RichEdit2->Text = descifrado;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::Cifrar6Click(TObject *Sender)
+{
+	String texto = RichEdit1->Text;
+	int filas = StrToInt(InputBox("Filas", "Filas: ", "3"));
+	texto  = rellenoZigZag(limpiarCadena(texto), filas);
+
+	for(int i = 1; i <= texto.Length(); i++){
+		for(int i = j; j <= texto.Length(); j++){
+			for(int k = 1; k <= texto.Length(); k++){
+
+				i++;
+			}
+		}
+	}
 }
 //---------------------------------------------------------------------------
 
