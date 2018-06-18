@@ -147,6 +147,14 @@ object Form1: TForm1
       end
       object PoliAlfabetica1: TMenuItem
         Caption = 'Poli Alfabetica'
+        object Cifrar7: TMenuItem
+          Caption = 'Cifrar'
+          OnClick = Cifrar7Click
+        end
+        object Descifrar7: TMenuItem
+          Caption = 'Descifrar'
+          OnClick = Descifrar7Click
+        end
       end
     end
   end

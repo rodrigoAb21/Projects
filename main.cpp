@@ -934,3 +934,16 @@ void __fastcall TForm1::Descifrar6Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+
+void __fastcall TForm1::Cifrar7Click(TObject *Sender)
+{
+    // Cifrado Polialfabetica
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Descifrar7Click(TObject *Sender)
+{
+    //Descifrado Polialfabetica
+}
+//---------------------------------------------------------------------------
+
