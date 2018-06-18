@@ -142,6 +142,27 @@ int cantImpares(int n){
 	return c;
 }
 
+String nuevoABC(String clave){
+
+	String alfabeto = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+	String c = limpiarCadena(clave);
+	String n = c[1];
+
+	for(int i = 1; i <= c.Length(); i++){
+		if(n.Pos(c[i]) <= 0){
+			n = n + c[i];
+		}
+	}
+
+	for(int i = 1; i <= alfabeto.Length(); i++){
+		if(n.Pos(alfabeto[i]) <= 0){
+			n = n + alfabeto[i];
+		}
+	}
+
+	return n;
+}
+
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
@@ -517,6 +538,324 @@ void __fastcall TForm1::Descifrado2Click(TObject *Sender)
 	for(int i = 1; i <= longitud; i++){
 		descifrado = descifrado + des[i];
 	}
+	RichEdit2->Text = descifrado;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Cifrar2Click(TObject *Sender)
+{
+	String mensaje = RichEdit1->Text;
+
+	int clave = 0;
+
+	try{
+		clave = StrToInt(InputBox("Key o Clave", "Cantidad de filas: ", "0"));
+	} catch(const Exception &e){
+		ShowMessage("Debe ingresar un numero valido!");
+	}
+
+	String matriz[500][500];
+
+	mensaje = rellenar(limpiarCadena(mensaje), clave);
+
+
+	for(int m = 1; m <= mensaje.Length(); m++){
+		for(int i = 1; i <= (mensaje.Length()/clave); i++){
+			for(int j = 1; j <= clave; j++){
+				matriz[j][i] = mensaje[m];
+				m++;
+			}
+		}
+	}
+
+	String cifrado = "";
+
+	for(int i = 1; i <= clave; i++){
+		for(int j = 1; j <= (mensaje.Length()/clave); j++){
+			cifrado = cifrado + matriz[i][j];
+		}
+	}
+
+
+	RichEdit2->Text = cifrado;
+
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::Descifrar2Click(TObject *Sender)
+{
+	String mensaje = RichEdit1->Text;
+
+	int clave = 0;
+
+	try{
+		clave = StrToInt(InputBox("Key o Clave", "Cantidad de filas: ", "0"));
+	} catch(const Exception &e){
+		ShowMessage("Debe ingresar un numero valido!");
+	}
+
+	String matriz[500][500];
+
+	mensaje = limpiarCadena(mensaje);
+
+
+	for(int m = 1; m <= mensaje.Length(); m++){
+		for(int i = 1; i <= clave; i++){
+			for(int j = 1; j <= (mensaje.Length()/clave); j++){
+				matriz[j][i] = mensaje[m];
+				m++;
+			}
+		}
+	}
+
+	String descifrado = "";
+
+	for(int i = 1; i <= (mensaje.Length()/clave); i++){
+		for(int j = 1; j <= clave; j++){
+			descifrado = descifrado + matriz[i][j];
+		}
+	}
+
+
+	RichEdit2->Text = descifrado;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Cifrar1Click(TObject *Sender)
+{
+String mensaje = RichEdit1->Text;
+
+	int clave = 0;
+
+	try{
+		clave = StrToInt(InputBox("Key o Clave", "Cantidad de filas: ", "0"));
+	} catch(const Exception &e){
+		ShowMessage("Debe ingresar un numero valido!");
+	}
+
+	String matriz[500][500];
+
+	mensaje = rellenar(limpiarCadena(mensaje), clave);
+
+	for(int m = 1; m <= mensaje.Length(); m++){
+		for(int i = 1; i <= (mensaje.Length()/clave); i++){
+			for(int j = 1; j <= clave; j++){
+				matriz[i][j] = mensaje[m];
+                m++;
+			}
+		}
+	}
+
+	String cifrado = "";
+
+	for(int i = 1; i <= clave; i++){
+		for(int j = 1; j <= (mensaje.Length()/clave); j++){
+			cifrado = cifrado + matriz[j][i];
+		}
+	}
+
+
+	RichEdit2->Text = cifrado;
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Descifrar1Click(TObject *Sender)
+{
+	String mensaje = RichEdit1->Text;
+
+	int clave = 0;
+
+	try{
+		clave = StrToInt(InputBox("Key o Clave", "Cantidad de filas: ", "0"));
+	} catch(const Exception &e){
+		ShowMessage("Debe ingresar un numero valido!");
+	}
+
+	String matriz[500][500];
+
+	mensaje = limpiarCadena(mensaje);
+
+
+	for(int m = 1; m <= mensaje.Length(); m++){
+		for(int i = 1; i <= clave; i++){
+			for(int j = 1; j <= (mensaje.Length()/clave); j++){
+				matriz[i][j] = mensaje[m];
+				m++;
+			}
+		}
+	}
+
+	String descifrado = "";
+
+	for(int i = 1; i <= (mensaje.Length()/clave); i++){
+		for(int j = 1; j <= clave; j++){
+			descifrado = descifrado + matriz[j][i];
+		}
+	}
+
+
+	RichEdit2->Text = descifrado;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::Cifrar3Click(TObject *Sender)
+{
+ //Cifrado monoalfabetica (Afin)  a = 11  b = 3
+
+	String algo = RichEdit1->Text;
+	algo = limpiarCadena(algo);
+	String alfabeto = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+	String a = "";
+	int posLetra = 0;
+	int nuevaPos = 0;
+
+	for(int i = 1; i <= algo.Length(); i++){
+		posLetra = alfabeto.Pos(algo[i]);
+		if(posLetra > 0){
+			// formula = ((m * a )+ b) mod 27
+			// se agrego el -1 y +1 debido a que el lenguaje no trabaja desde el indice 0
+			nuevaPos = (((posLetra - 1) * 11) + 3) % 27 + 1;
+
+			a = a + alfabeto[nuevaPos];
+		}
+	}
+
+	RichEdit2->Text = a;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Descifrar3Click(TObject *Sender)
+{
+//Descifrado monoalfabetica (Afin) b = 3  inv(a,27) = 5
+	String algo = RichEdit1->Text;
+	algo = limpiarCadena(algo);
+
+	String alfabeto = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+
+	String a = "";
+	int posLetra = 0;
+	int nuevaPos = 0;
+
+	for(int i = 1; i <= algo.Length(); i++){
+		posLetra = alfabeto.Pos(algo[i]);
+		if(posLetra > 0){
+			// formula = ((posCifrado - b ) * inv(a,27)) mod 27
+			// se agrego el -1 y +1 debido a que el lenguaje no trabaja desde el indice 0
+			nuevaPos = (((posLetra - 3 - 1) * 5) % 27) + 1;
+
+			//caso especial... en caso de que posCifrado sea menor que "b" (b = 3) se debe sumarle +27
+			if(posLetra < 4) nuevaPos = (((posLetra + (-3 + 27 - 1)) * 5) % 27) + 1;
+			a = a + alfabeto[nuevaPos];
+		}
+	}
+
+	RichEdit2->Text = a;
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TForm1::Cifrar4Click(TObject *Sender)
+{
+	//Desplazamiento Puro (Cesar) -- Cifrado
+	String texto = RichEdit1->Text;
+	texto = limpiarCadena(texto);
+
+	String alfabeto = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+
+	String cifrado = "";
+	int posLetra = 0;
+	int nuevaPos = 0;
+	int desplazamiento = 3;
+	desplazamiento = StrToInt(InputBox("Ingresar desplazamiento", "Desplazamiento", "1"));
+
+	for(int i = 1; i <= texto.Length(); i++){
+		posLetra = alfabeto.Pos(texto[i]);
+		nuevaPos = ((posLetra + desplazamiento - 1) % 27) + 1;
+		cifrado = cifrado + alfabeto[nuevaPos];
+	}
+
+	RichEdit2->Text = cifrado;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Descifrar4Click(TObject *Sender)
+{
+	//Desplazamiento Puro (Cesar) -- Descifrado
+	String texto = RichEdit1->Text;
+	texto = limpiarCadena(texto);
+
+	String alfabeto = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+
+	String descifrado = "";
+	int posLetra = 0;
+	int nuevaPos = 0;
+
+	int desplazamiento = 3;
+	desplazamiento = StrToInt(InputBox("Ingresar desplazamiento", "Desplazamiento", "1"));
+
+	for(int i = 1; i <= texto.Length(); i++){
+		posLetra = alfabeto.Pos(texto[i]);
+		nuevaPos = ((posLetra - desplazamiento + 27 - 1) % 27) + 1;
+		descifrado = descifrado + alfabeto[nuevaPos];
+	}
+
+	RichEdit2->Text = descifrado;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Cifrar5Click(TObject *Sender)
+{
+	//Desplazamiento con Clave (Cesar) -- Cifrado
+    String clave = InputBox("Clave", "Clave: ", "Clave");
+	String alfabeto = nuevoABC(clave);
+
+    String texto = RichEdit1->Text;
+	texto = limpiarCadena(texto);
+
+	String cifrado = "";
+	int posLetra = 0;
+	int nuevaPos = 0;
+	int desplazamiento = 3;
+	desplazamiento = StrToInt(InputBox("Ingresar desplazamiento", "Desplazamiento", "1"));
+
+	for(int i = 1; i <= texto.Length(); i++){
+		posLetra = alfabeto.Pos(texto[i]);
+		nuevaPos = ((posLetra + desplazamiento - 1) % 27) + 1;
+		cifrado = cifrado + alfabeto[nuevaPos];
+	}
+
+	RichEdit2->Text = cifrado;
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Descifrar5Click(TObject *Sender)
+{
+	//Desplazamiento con Clave (Cesar) -- Descifrado
+
+	String clave = InputBox("Clave", "Clave: ", "Clave");
+	String alfabeto = nuevoABC(clave);
+
+    String texto = RichEdit1->Text;
+	texto = limpiarCadena(texto);
+
+	String descifrado = "";
+	int posLetra = 0;
+	int nuevaPos = 0;
+
+	int desplazamiento = 3;
+	desplazamiento = StrToInt(InputBox("Ingresar desplazamiento", "Desplazamiento", "1"));
+
+	for(int i = 1; i <= texto.Length(); i++){
+		posLetra = alfabeto.Pos(texto[i]);
+		nuevaPos = ((posLetra - desplazamiento + 27 - 1) % 27) + 1;
+		descifrado = descifrado + alfabeto[nuevaPos];
+	}
+
 	RichEdit2->Text = descifrado;
 }
 //---------------------------------------------------------------------------

@@ -47,15 +47,31 @@ object Form1: TForm1
     Zoom = 100
   end
   object MainMenu1: TMainMenu
-    Left = 384
-    Top = 280
+    Left = 24
+    Top = 240
     object Desplazamiento1: TMenuItem
       Caption = 'Desplazamiento'
       object Puro1: TMenuItem
         Caption = 'Puro'
+        object Cifrar4: TMenuItem
+          Caption = 'Cifrar'
+          OnClick = Cifrar4Click
+        end
+        object Descifrar4: TMenuItem
+          Caption = 'Descifrar'
+          OnClick = Descifrar4Click
+        end
       end
       object Conclave1: TMenuItem
         Caption = 'Con clave'
+        object Cifrar5: TMenuItem
+          Caption = 'Cifrar'
+          OnClick = Cifrar5Click
+        end
+        object Descifrar5: TMenuItem
+          Caption = 'Descifrar'
+          OnClick = Descifrar5Click
+        end
       end
     end
     object ransposicion1: TMenuItem
@@ -84,9 +100,25 @@ object Form1: TForm1
       end
       object Columnas1: TMenuItem
         Caption = 'Columnas'
+        object Cifrar1: TMenuItem
+          Caption = 'Cifrar'
+          OnClick = Cifrar1Click
+        end
+        object Descifrar1: TMenuItem
+          Caption = 'Descifrar'
+          OnClick = Descifrar1Click
+        end
       end
       object Filas1: TMenuItem
         Caption = 'Filas'
+        object Cifrar2: TMenuItem
+          Caption = 'Cifrar'
+          OnClick = Cifrar2Click
+        end
+        object Descifrar2: TMenuItem
+          Caption = 'Descifrar'
+          OnClick = Descifrar2Click
+        end
       end
       object ZigZag1: TMenuItem
         Caption = 'Zig - Zag'
@@ -96,6 +128,14 @@ object Form1: TForm1
       Caption = 'Sustitucion'
       object MonoAlfabetica1: TMenuItem
         Caption = 'Mono Alfabetica'
+        object Cifrar3: TMenuItem
+          Caption = 'Cifrar'
+          OnClick = Cifrar3Click
+        end
+        object Descifrar3: TMenuItem
+          Caption = 'Descifrar'
+          OnClick = Descifrar3Click
+        end
       end
       object PoliAlfabetica1: TMenuItem
         Caption = 'Poli Alfabetica'

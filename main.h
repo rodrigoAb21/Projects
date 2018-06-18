@@ -32,6 +32,16 @@ __published:	// IDE-managed Components
 	TMenuItem *Descifrado1;
 	TMenuItem *Cifrado2;
 	TMenuItem *Descifrado2;
+	TMenuItem *Cifrar1;
+	TMenuItem *Descifrar1;
+	TMenuItem *Cifrar2;
+	TMenuItem *Descifrar2;
+	TMenuItem *Cifrar3;
+	TMenuItem *Descifrar3;
+	TMenuItem *Cifrar4;
+	TMenuItem *Descifrar4;
+	TMenuItem *Cifrar5;
+	TMenuItem *Descifrar5;
 	void __fastcall Button1Click(TObject *Sender);
 	void __fastcall Button2Click(TObject *Sender);
 	void __fastcall Button3Click(TObject *Sender);
@@ -39,6 +49,16 @@ __published:	// IDE-managed Components
 	void __fastcall Descifrado1Click(TObject *Sender);
 	void __fastcall Cifrado2Click(TObject *Sender);
 	void __fastcall Descifrado2Click(TObject *Sender);
+	void __fastcall Cifrar2Click(TObject *Sender);
+	void __fastcall Descifrar2Click(TObject *Sender);
+	void __fastcall Cifrar1Click(TObject *Sender);
+	void __fastcall Descifrar1Click(TObject *Sender);
+	void __fastcall Cifrar3Click(TObject *Sender);
+	void __fastcall Descifrar3Click(TObject *Sender);
+	void __fastcall Cifrar4Click(TObject *Sender);
+	void __fastcall Descifrar4Click(TObject *Sender);
+	void __fastcall Cifrar5Click(TObject *Sender);
+	void __fastcall Descifrar5Click(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TForm1(TComponent* Owner);
