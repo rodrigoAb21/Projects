@@ -108,7 +108,7 @@
     </PropertyGroup>
     <ItemGroup>
         <CppCompile Include="main.cpp">
-            <Form>Form1</Form>
+            <Form>Proyecto_Cripto</Form>
             <FormType>dfm</FormType>
             <DependentOn>main.h</DependentOn>
             <BuildOrder>2</BuildOrder>

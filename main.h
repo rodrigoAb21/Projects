@@ -10,7 +10,7 @@
 #include <Vcl.ComCtrls.hpp>
 #include <Vcl.Menus.hpp>
 //---------------------------------------------------------------------------
-class TForm1 : public TForm
+class TProyecto_Cripto : public TForm
 {
 __published:	// IDE-managed Components
 	TRichEdit *RichEdit1;
@@ -46,6 +46,8 @@ __published:	// IDE-managed Components
 	TMenuItem *Descifrar6;
 	TMenuItem *Cifrar7;
 	TMenuItem *Descifrar7;
+	TLabel *Label1;
+	TLabel *Label2;
 	void __fastcall Button1Click(TObject *Sender);
 	void __fastcall Button2Click(TObject *Sender);
 	void __fastcall Button3Click(TObject *Sender);
@@ -69,9 +71,9 @@ __published:	// IDE-managed Components
 	void __fastcall Descifrar7Click(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
-	__fastcall TForm1(TComponent* Owner);
+	__fastcall TProyecto_Cripto(TComponent* Owner);
 };
 //---------------------------------------------------------------------------
-extern PACKAGE TForm1 *Form1;
+extern PACKAGE TProyecto_Cripto *Proyecto_Cripto;
 //---------------------------------------------------------------------------
 #endif

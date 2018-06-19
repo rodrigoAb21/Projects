@@ -1,9 +1,10 @@
-object Form1: TForm1
+object Proyecto_Cripto: TProyecto_Cripto
   Left = 0
   Top = 0
-  Caption = 'Form1'
-  ClientHeight = 551
-  ClientWidth = 786
+  BorderStyle = bsSingle
+  Caption = 'Proyecto_Cripto'
+  ClientHeight = 594
+  ClientWidth = 804
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,37 +13,66 @@ object Form1: TForm1
   Font.Style = []
   Menu = MainMenu1
   OldCreateOrder = False
+  Position = poDesktopCenter
   PixelsPerInch = 96
   TextHeight = 13
+  object Label1: TLabel
+    Left = 280
+    Top = 297
+    Width = 225
+    Height = 25
+    Caption = 'RESULTADO OBTENIDO'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 296
+    Top = 8
+    Width = 194
+    Height = 25
+    Caption = 'ENTRADA DE TEXTO'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
   object RichEdit1: TRichEdit
     Left = 24
-    Top = 24
-    Width = 729
-    Height = 201
+    Top = 48
+    Width = 737
+    Height = 225
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -16
     Font.Name = 'Tahoma'
     Font.Style = []
     Lines.Strings = (
       'RichEdit1')
     ParentFont = False
+    ScrollBars = ssVertical
     TabOrder = 0
     Zoom = 100
   end
   object RichEdit2: TRichEdit
     Left = 24
-    Top = 296
+    Top = 344
     Width = 737
     Height = 217
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -16
     Font.Name = 'Tahoma'
     Font.Style = []
     Lines.Strings = (
       'RichEdit2')
     ParentFont = False
+    ScrollBars = ssVertical
     TabOrder = 1
     Zoom = 100
   end

@@ -7,12 +7,13 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
-TForm1 *Form1;
+TProyecto_Cripto *Proyecto_Cripto;
 //---------------------------------------------------------------------------
-__fastcall TForm1::TForm1(TComponent* Owner)
+__fastcall TProyecto_Cripto::TProyecto_Cripto(TComponent* Owner)
 	: TForm(Owner)
 {
-
+	RichEdit1->Text = "";
+	RichEdit2->Text = "";
 }
 //---------------------------------------------------------------------------
 
@@ -57,6 +58,47 @@ String limpiarCadena(String mensaje){
 	return resultado;
 
 }
+
+
+String limpiarCadenaI(String mensaje){
+	String resultado = "";
+	mensaje = mensaje.UpperCase();
+	String c = " ";
+	for(int i = 1; i <= mensaje.Length(); i++){
+		c = mensaje[i];
+		if(c >= "A" && c <= "Z"){
+		   resultado = resultado + c;
+		}else{
+			if(c == "Á"){
+				resultado = resultado + "A";
+			}else{
+				if(c == "É"){
+					resultado = resultado + "E";
+				}else{
+					if(c == "Í"){
+						resultado = resultado + "I";
+					}else{
+						if(c == "Ó"){
+							resultado = resultado + "O";
+						}else{
+							 if(c == "Ú" || c == "Ü"){
+								resultado = resultado + "U";
+							}else{
+								if(c == "Ñ"){
+									resultado = resultado + "N";
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return resultado;
+
+}
+
 
 
 String rellenar(String mensaje, int c){
@@ -182,7 +224,7 @@ String rellenoZigZag(String texto, int filas){
 // ---------------------------------------------------------------------------
 
 
-void __fastcall TForm1::Button1Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Button1Click(TObject *Sender)
 {
 	//CIFRAR POR GRUPO
 	String s = RichEdit1->Text;
@@ -253,7 +295,7 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
-void __fastcall TForm1::Button2Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Button2Click(TObject *Sender)
 {
 	//DESCIFRAR POR GRUPO
 	String s = RichEdit1->Text;
@@ -320,7 +362,7 @@ void __fastcall TForm1::Button2Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Button3Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Button3Click(TObject *Sender)
 {
 	String mensaje = RichEdit1->Text;
     mensaje = limpiarCadena(mensaje);
@@ -348,7 +390,7 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
-void __fastcall TForm1::Cifrado1Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Cifrado1Click(TObject *Sender)
 {
     //CIFRAR POR GRUPO
 	String s = RichEdit1->Text;
@@ -412,7 +454,7 @@ void __fastcall TForm1::Cifrado1Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Descifrado1Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Descifrado1Click(TObject *Sender)
 {
     	//DESCIFRAR POR GRUPO
 	String s = RichEdit1->Text;
@@ -478,8 +520,9 @@ void __fastcall TForm1::Descifrado1Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Cifrado2Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Cifrado2Click(TObject *Sender)
 {
+    // Cifrado por Series
 	String mensaje = RichEdit1->Text;
 	mensaje = limpiarCadena(mensaje);
 	String primos = "";
@@ -507,8 +550,9 @@ void __fastcall TForm1::Cifrado2Click(TObject *Sender)
 
 
 
-void __fastcall TForm1::Descifrado2Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Descifrado2Click(TObject *Sender)
 {
+    // Descifrado por series
 	String mensaje = RichEdit1->Text;
 	mensaje = limpiarCadena(mensaje);
 	int const longitud = mensaje.Length();
@@ -555,14 +599,16 @@ void __fastcall TForm1::Descifrado2Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Cifrar2Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Cifrar2Click(TObject *Sender)
 {
+	//Cifrado por Filas
+
 	String mensaje = RichEdit1->Text;
 
 	int clave = 0;
 
 	try{
-		clave = StrToInt(InputBox("Key o Clave", "Cantidad de filas: ", "0"));
+		clave = StrToInt(InputBox("Key o Clave", "Cantidad de filas: ", "3"));
 	} catch(const Exception &e){
 		ShowMessage("Debe ingresar un numero valido!");
 	}
@@ -596,14 +642,15 @@ void __fastcall TForm1::Cifrar2Click(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
-void __fastcall TForm1::Descifrar2Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Descifrar2Click(TObject *Sender)
 {
+    // Descifrado por filas
 	String mensaje = RichEdit1->Text;
 
 	int clave = 0;
 
 	try{
-		clave = StrToInt(InputBox("Key o Clave", "Cantidad de filas: ", "0"));
+		clave = StrToInt(InputBox("Key o Clave", "Cantidad de filas: ", "3"));
 	} catch(const Exception &e){
 		ShowMessage("Debe ingresar un numero valido!");
 	}
@@ -635,28 +682,30 @@ void __fastcall TForm1::Descifrar2Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Cifrar1Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Cifrar1Click(TObject *Sender)
 {
-String mensaje = RichEdit1->Text;
+    //Cifrado por columnas
+	   String mensaje = RichEdit1->Text;
 
 	int clave = 0;
 
 	try{
-		clave = StrToInt(InputBox("Key o Clave", "Cantidad de filas: ", "0"));
+		clave = StrToInt(InputBox("Key o Clave", "Cantidad de filas: ", "3"));
 	} catch(const Exception &e){
 		ShowMessage("Debe ingresar un numero valido!");
 	}
 
 	String matriz[500][500];
-
+	String cadena = "";
 	mensaje = rellenar(limpiarCadena(mensaje), clave);
 
 	for(int m = 1; m <= mensaje.Length(); m++){
 		for(int i = 1; i <= (mensaje.Length()/clave); i++){
 			for(int j = 1; j <= clave; j++){
 				matriz[i][j] = mensaje[m];
-                m++;
+				m++;
 			}
+
 		}
 	}
 
@@ -670,18 +719,18 @@ String mensaje = RichEdit1->Text;
 
 
 	RichEdit2->Text = cifrado;
-
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Descifrar1Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Descifrar1Click(TObject *Sender)
 {
+    // Descifrado por columnas
 	String mensaje = RichEdit1->Text;
 
 	int clave = 0;
 
 	try{
-		clave = StrToInt(InputBox("Key o Clave", "Cantidad de filas: ", "0"));
+		clave = StrToInt(InputBox("Key o Clave", "Cantidad de columnas: ", "3"));
 	} catch(const Exception &e){
 		ShowMessage("Debe ingresar un numero valido!");
 	}
@@ -714,7 +763,7 @@ void __fastcall TForm1::Descifrar1Click(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
-void __fastcall TForm1::Cifrar3Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Cifrar3Click(TObject *Sender)
 {
  //Cifrado monoalfabetica (Afin)  a = 11  b = 3
 
@@ -740,7 +789,7 @@ void __fastcall TForm1::Cifrar3Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Descifrar3Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Descifrar3Click(TObject *Sender)
 {
 //Descifrado monoalfabetica (Afin) b = 3  inv(a,27) = 5
 	String algo = RichEdit1->Text;
@@ -771,7 +820,7 @@ void __fastcall TForm1::Descifrar3Click(TObject *Sender)
 
 
 
-void __fastcall TForm1::Cifrar4Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Cifrar4Click(TObject *Sender)
 {
 	//Desplazamiento Puro (Cesar) -- Cifrado
 	String texto = RichEdit1->Text;
@@ -795,7 +844,7 @@ void __fastcall TForm1::Cifrar4Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Descifrar4Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Descifrar4Click(TObject *Sender)
 {
 	//Desplazamiento Puro (Cesar) -- Descifrado
 	String texto = RichEdit1->Text;
@@ -820,7 +869,7 @@ void __fastcall TForm1::Descifrar4Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Cifrar5Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Cifrar5Click(TObject *Sender)
 {
 	//Desplazamiento con Clave (Cesar) -- Cifrado
     String clave = InputBox("Clave", "Clave: ", "Clave");
@@ -846,7 +895,7 @@ void __fastcall TForm1::Cifrar5Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Descifrar5Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Descifrar5Click(TObject *Sender)
 {
 	//Desplazamiento con Clave (Cesar) -- Descifrado
 
@@ -874,7 +923,7 @@ void __fastcall TForm1::Descifrar5Click(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
-void __fastcall TForm1::Cifrar6Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Cifrar6Click(TObject *Sender)
 {
 	// Cifrado Zig Zag
 	String texto = RichEdit1->Text;
@@ -927,7 +976,7 @@ void __fastcall TForm1::Cifrar6Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Descifrar6Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Descifrar6Click(TObject *Sender)
 {
 	// Descifrado Zig Zag
 
@@ -980,74 +1029,76 @@ void __fastcall TForm1::Descifrar6Click(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
-void __fastcall TForm1::Cifrar7Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Cifrar7Click(TObject *Sender)
 {
 	// Cifrado Polialfabetica
-	char msg[1000];
-	AnsiString r(RichEdit1->Text.c_str());
-	strcpy(msg, r.c_str());
+
+	char texto[1000];
+	AnsiString r(limpiarCadenaI(RichEdit1->Text).c_str());
+	strcpy(texto, r.c_str());
 
 	AnsiString clave(InputBox("Clave", "Clave: ", "HELLO"));
 	char key[1000];
 	strcpy(key, clave.c_str());
 
-	int msgLen = strlen(msg), keyLen = strlen(key), i, j;
+	int msgLen = strlen(texto), keyLen = strlen(key), i, j;
 
-	char newKey[500], encryptedMsg[500], decryptedMsg[500];
+	char nuevaClave[500], cifrado[500];
 
-	//generating new key
+	//creando una clave nueva
 	for(i = 0, j = 0; i < msgLen; ++i, ++j){
 		if(j == (keyLen))
 			j = 0;
-		newKey[i] = key[j];
+		nuevaClave[i] = key[j];
 	}
 
-	newKey[i] = '\0';
+	nuevaClave[i] = '\0';
 
 
-	//encryption
+	//cifrando
 	for(i = 0; i < msgLen; ++i)
-		encryptedMsg[i] = (((msg[i] + newKey[i]) % 26) ) + 'A';
+		cifrado[i] = (((texto[i] + nuevaClave[i]) % 26) ) + 'A';
 
-	encryptedMsg[i] = '\0';
+	cifrado[i] = '\0';
 
 
-	RichEdit2->Text = encryptedMsg;
+	RichEdit2->Text = cifrado;
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Descifrar7Click(TObject *Sender)
+void __fastcall TProyecto_Cripto::Descifrar7Click(TObject *Sender)
 {
 	//Descifrado Polialfabetica
 
-	char msg[1000];
-	AnsiString r(RichEdit1->Text.c_str());
-	strcpy(msg, r.c_str());
+	char texto[1000];
+	AnsiString r(limpiarCadenaI(RichEdit1->Text).c_str());
+	strcpy(texto, r.c_str());
 
 	AnsiString clave(InputBox("Clave", "Clave: ", "HELLO"));
 	char key[1000];
 	strcpy(key, clave.c_str());
 
-	int msgLen = strlen(msg), keyLen = strlen(key), i, j;
+	int msgLen = strlen(texto), keyLen = strlen(key), i, j;
 
-	char newKey[500], decryptedMsg[500];
+	char nuevaClave[500], descifrado[500];
 
-	//generating new key
+	//creando una clave nueva
 	for(i = 0, j = 0; i < msgLen; ++i, ++j){
 		if(j == (keyLen))
 			j = 0;
-		newKey[i] = key[j];
+		nuevaClave[i] = key[j];
 	}
 
-	newKey[i] = '\0';
+	nuevaClave[i] = '\0';
 
-    //decryption
+    //Descifrando
     for(i = 0; i < msgLen; ++i)
-		decryptedMsg[i] = (((msg[i] - newKey[i]) + 26) % 26) + 'A';
+		descifrado[i] = (((texto[i] - nuevaClave[i]) + 26) % 26) + 'A';
 
-	decryptedMsg[i] = '\0';
+	descifrado[i] = '\0';
 
-	RichEdit2->Text = decryptedMsg;
+	RichEdit2->Text = descifrado;
 }
 //---------------------------------------------------------------------------
+
 
