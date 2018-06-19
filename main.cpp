@@ -876,7 +876,7 @@ void __fastcall TForm1::Descifrar5Click(TObject *Sender)
 
 void __fastcall TForm1::Cifrar6Click(TObject *Sender)
 {
-    // Cifrado Zig Zag
+	// Cifrado Zig Zag
 	String texto = RichEdit1->Text;
 	int filas = StrToInt(InputBox("Filas", "Filas: ", "3"));
 	texto  = rellenoZigZag(limpiarCadena(texto), filas);
@@ -929,7 +929,52 @@ void __fastcall TForm1::Cifrar6Click(TObject *Sender)
 
 void __fastcall TForm1::Descifrar6Click(TObject *Sender)
 {
-	//Descifrado Zig Zag
+	// Descifrado Zig Zag
+
+	String texto = RichEdit1->Text;
+	int filas = StrToInt(InputBox("Filas", "Filas: ", "3"));
+
+	String descifrado = "";
+
+	//inicializando
+	int msgLen = texto.Length(), i, j, k = -1, row = 1, col = 1, m = 1;
+	String railMatrix[100][500];
+
+	//matriz vacia
+	for(i = 1; i <= filas; ++i)
+		for(j = 1; j <= msgLen; ++j)
+			railMatrix[i][j] = "";
+
+	//rellenar con * el zig zag
+	for(i = 1; i <= msgLen; ++i){
+		railMatrix[row][col++] = "*";
+
+		if(row == 1 || row == filas)
+			k= k * (-1);
+
+        row = row + k;
+    }
+
+	//Reemplazando * por el texto
+	for(i = 1; i <= filas; ++i)
+		for(j = 1; j <= msgLen; ++j)
+			if(railMatrix[i][j] == "*")
+				railMatrix[i][j] = texto[m++];
+
+	row = col = 1;
+	k = -1;
+
+    //Leyendo en zig zag
+	for(i = 1; i <= msgLen; ++i){
+		descifrado = descifrado + railMatrix[row][col++];
+
+		if(row == 1 || row == filas)
+			k= k * (-1);
+
+        row = row + k;
+	}
+
+    RichEdit2->Text = descifrado;
 
 }
 //---------------------------------------------------------------------------
