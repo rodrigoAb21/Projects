@@ -974,7 +974,7 @@ void __fastcall TForm1::Descifrar6Click(TObject *Sender)
         row = row + k;
 	}
 
-    RichEdit2->Text = descifrado;
+	RichEdit2->Text = descifrado;
 
 }
 //---------------------------------------------------------------------------
@@ -982,13 +982,72 @@ void __fastcall TForm1::Descifrar6Click(TObject *Sender)
 
 void __fastcall TForm1::Cifrar7Click(TObject *Sender)
 {
-    // Cifrado Polialfabetica
+	// Cifrado Polialfabetica
+	char msg[1000];
+	AnsiString r(RichEdit1->Text.c_str());
+	strcpy(msg, r.c_str());
+
+	AnsiString clave(InputBox("Clave", "Clave: ", "HELLO"));
+	char key[1000];
+	strcpy(key, clave.c_str());
+
+	int msgLen = strlen(msg), keyLen = strlen(key), i, j;
+
+	char newKey[500], encryptedMsg[500], decryptedMsg[500];
+
+	//generating new key
+	for(i = 0, j = 0; i < msgLen; ++i, ++j){
+		if(j == (keyLen))
+			j = 0;
+		newKey[i] = key[j];
+	}
+
+	newKey[i] = '\0';
+
+
+	//encryption
+	for(i = 0; i < msgLen; ++i)
+		encryptedMsg[i] = (((msg[i] + newKey[i]) % 26) ) + 'A';
+
+	encryptedMsg[i] = '\0';
+
+
+	RichEdit2->Text = encryptedMsg;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::Descifrar7Click(TObject *Sender)
 {
-    //Descifrado Polialfabetica
+	//Descifrado Polialfabetica
+
+	char msg[1000];
+	AnsiString r(RichEdit1->Text.c_str());
+	strcpy(msg, r.c_str());
+
+	AnsiString clave(InputBox("Clave", "Clave: ", "HELLO"));
+	char key[1000];
+	strcpy(key, clave.c_str());
+
+	int msgLen = strlen(msg), keyLen = strlen(key), i, j;
+
+	char newKey[500], decryptedMsg[500];
+
+	//generating new key
+	for(i = 0, j = 0; i < msgLen; ++i, ++j){
+		if(j == (keyLen))
+			j = 0;
+		newKey[i] = key[j];
+	}
+
+	newKey[i] = '\0';
+
+    //decryption
+    for(i = 0; i < msgLen; ++i)
+		decryptedMsg[i] = (((msg[i] - newKey[i]) + 26) % 26) + 'A';
+
+	decryptedMsg[i] = '\0';
+
+	RichEdit2->Text = decryptedMsg;
 }
 //---------------------------------------------------------------------------
 
